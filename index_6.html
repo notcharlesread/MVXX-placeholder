@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MVXX — Frontier</title>
+  <meta name="description" content="Frontier is a market intelligence platform and newsletter covering frontier technologies and financial markets. The daily wire is free, every day before market open. Launching August 2026.">
+  <meta name="author" content="MVXX Group">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="MVXX — Frontier">
+  <meta property="og:description" content="Market intelligence for frontier technologies and financial markets. Launching August 2026.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mvxx.com">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="MVXX — Frontier">
+  <meta name="twitter:description" content="Market intelligence for frontier technologies and financial markets. Launching August 2026.">
+
+  <!-- Fonts: Anton (display, Druk substitute), Space Grotesk (structure), Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Favicon: simplified MVXX signal mark -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' fill='%23FFFFFF'/%3E%3Cg fill='none' stroke='%23000' stroke-width='2.4'%3E%3Ccircle cx='102' cy='60' r='10'/%3E%3Ccircle cx='94' cy='60' r='18'/%3E%3Ccircle cx='86' cy='60' r='26'/%3E%3Ccircle cx='78' cy='60' r='34'/%3E%3Ccircle cx='70' cy='60' r='42'/%3E%3Ccircle cx='62' cy='60' r='50'/%3E%3C/g%3E%3Crect x='10' y='58.5' width='100' height='3' fill='%23FF0000'/%3E%3Crect x='106.75' y='56.75' width='6.5' height='6.5' fill='%23FF0000'/%3E%3C/svg%3E">
+
+  <style>
+    :root {
+      --black: #000000;
+      --off-black: #1A1A1A;
+      --white: #FFFFFF;
+      --red: #FF0000;
+      --mid-grey: #888888;
+      --light-grey: #E5E5E5;
+      --font-display: 'Anton', 'Impact', sans-serif;
+      --font-structure: 'Space Grotesk', system-ui, sans-serif;
+      --font-body: 'Inter', system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      background: var(--white);
+      color: var(--off-black);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top nav — MVXX identity, minimal */
+    header {
+      padding: 16px 48px;
+      border-bottom: 1px solid var(--light-grey);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mvxx-lockup {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mvxx-mark {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      display: block;
+    }
+
+    .mvxx-wordmark {
+      font-family: var(--font-structure);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      color: var(--black);
+    }
+
+    .brand-descriptor {
+      font-family: var(--font-structure);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--mid-grey);
+    }
+
+    /* Main content area — two-column split */
+    main {
+      flex: 1;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 48px 64px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 72px;
+    }
+
+    /* Left column — logo lockup */
+    .hero-left {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Right column — content + signup */
+    .hero-right {
+      flex: 1 1 auto;
+      max-width: 520px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .frontier-hero-logo {
+      width: 340px;
+      height: 340px;
+      display: block;
+    }
+
+    /* Red stripe motif */
+    .frontier-stripe {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 3px;
+      background: var(--red);
+      margin: 0 0 32px;
+    }
+
+    .frontier-stripe::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 8px;
+      background: var(--red);
+    }
+
+    .frontier-body {
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--off-black);
+    }
+
+    .frontier-body p {
+      margin-bottom: 18px;
+    }
+
+    .frontier-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Headline — the hook, dominant */
+    .frontier-headline {
+      font-family: var(--font-structure);
+      font-size: 27px;
+      line-height: 1.25;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: 20px !important;
+    }
+
+    /* Descriptor — the category definition (what Frontier is) */
+    .frontier-descriptor {
+      font-family: var(--font-body);
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--off-black);
+      margin-bottom: 20px !important;
+    }
+
+    /* Cadence line — quiet supporting fact */
+    .frontier-cadence {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--off-black);
+      margin-bottom: 0 !important;
+    }
+
+    .launch-line {
+      margin-top: 24px !important;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--off-black);
+    }
+
+    /* Vertical coverage list */
+    .frontier-verticals {
+      margin-top: 24px;
+      font-family: var(--font-structure);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid-grey);
+      line-height: 1.8;
+    }
+
+    .emphasis {
+      color: var(--red);
+      font-weight: 500;
+    }
+
+    /* Signup section */
+    .signup-section {
+      margin-top: 32px;
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .signup-heading {
+      font-family: var(--font-display);
+      font-size: 40px;
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: 0.005em;
+      color: var(--black);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    /* Form */
+    .signup-form {
+      display: flex;
+      gap: 0;
+      max-width: 480px;
+      margin: 0 auto;
+      border: 1.5px solid var(--black);
+    }
+
+    .signup-input {
+      flex: 1;
+      padding: 16px 20px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--off-black);
+      background: var(--white);
+      border: none;
+      outline: none;
+    }
+
+    .signup-input::placeholder {
+      color: var(--mid-grey);
+    }
+
+    .signup-input:focus {
+      background: #FAFAFA;
+    }
+
+    .signup-button {
+      padding: 16px 28px;
+      font-family: var(--font-structure);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--black);
+      border: none;
+      cursor: pointer;
+      transition: background 120ms ease;
+      flex-shrink: 0;
+    }
+
+    .signup-button:hover {
+      background: var(--red);
+    }
+
+    .signup-button:disabled {
+      background: var(--mid-grey);
+      cursor: not-allowed;
+    }
+
+    /* Status messages */
+    .form-status {
+      margin-top: 16px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      min-height: 22px;
+    }
+
+    .form-status.success {
+      color: var(--off-black);
+    }
+
+    .form-status.error {
+      color: var(--red);
+    }
+
+    /* Footer */
+    footer {
+      padding: 20px 48px;
+      border-top: 1px solid var(--light-grey);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-structure);
+      font-size: 12px;
+      color: var(--mid-grey);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    footer .copyright {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .signal-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: var(--red);
+    }
+
+    /* Selection */
+    ::selection {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    /* Tablet / mid-width: reduce gap and logo size before stacking */
+    @media (max-width: 960px) {
+      main {
+        gap: 48px;
+        padding: 40px 40px;
+      }
+      .frontier-hero-logo {
+        width: 280px;
+        height: 280px;
+      }
+    }
+
+    /* Mobile: stack the two columns vertically, re-center */
+    @media (max-width: 720px) {
+      header {
+        padding: 20px 24px;
+      }
+      .brand-descriptor {
+        display: none;
+      }
+      main {
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+        padding: 40px 24px;
+      }
+      .hero-right {
+        align-items: center;
+        text-align: center;
+        max-width: 480px;
+      }
+      .frontier-stripe {
+        margin: 0 auto 24px;
+      }
+      .frontier-hero-logo {
+        width: 220px;
+        height: 220px;
+      }
+      .frontier-body {
+        font-size: 16px;
+      }
+      .signup-section {
+        margin-top: 24px;
+        max-width: 100%;
+      }
+      .signup-heading {
+        font-size: 32px;
+      }
+      .signup-form {
+        flex-direction: column;
+      }
+      .signup-input {
+        border-bottom: 1.5px solid var(--black);
+      }
+      footer {
+        padding: 24px;
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="mvxx-lockup">
+      <!-- MVXX signal mark (production SVG) -->
+      <svg class="mvxx-mark" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-label="MVXX" role="img">
+        <g fill="none" stroke="#000" stroke-width="2.4">
+          <circle cx="102" cy="60" r="10"></circle>
+          <circle cx="94" cy="60" r="18"></circle>
+          <circle cx="86" cy="60" r="26"></circle>
+          <circle cx="78" cy="60" r="34"></circle>
+          <circle cx="70" cy="60" r="42"></circle>
+          <circle cx="62" cy="60" r="50"></circle>
+        </g>
+        <rect x="10" y="58.5" width="100" height="3" fill="#FF0000"></rect>
+        <rect x="106.75" y="56.75" width="6.5" height="6.5" fill="#FF0000"></rect>
+      </svg>
+      <span class="mvxx-wordmark">MVXX</span>
+    </div>
+    <span class="brand-descriptor">Independent media house</span>
+  </header>
+
+  <main>
+
+    <div class="hero-left">
+      <!-- Frontier lockup — mark + wordmark, official production SVG -->
+      <svg class="frontier-hero-logo" viewBox="0 40 400 400" xmlns="http://www.w3.org/2000/svg" aria-label="Frontier" role="img"><svg x="50" y="46" width="300" height="270" viewBox="-8 -2 136 100"><path d="M60.00,23.50 L50.67,29.20 L41.33,34.92 L32.00,39.98 L22.67,43.92 L13.33,47.20 L4.00,50.50" fill="none" stroke="#000" stroke-width="1.3"></path><path d="M69.33,29.20 L60.00,36.15 L50.67,43.91 L41.33,50.27 L32.00,52.91 L22.67,54.15 L13.33,56.20" fill="none" stroke="#000" stroke-width="1.3"></path><path d="M78.67,34.92 L69.33,43.91 L60.00,57.12 L50.67,69.00 L41.33,66.12 L32.00,61.91 L22.67,61.92" fill="none" stroke="#000" stroke-width="1.3"></path><path d="M60.00,23.50 L69.33,29.20 L78.67,34.92 L88.00,39.98 L97.33,43.92 L106.67,47.20 L116.00,50.50" fill="none" stroke="#000" stroke-width="1.3"></path><path d="M50.67,29.20 L60.00,36.15 L69.33,43.91 L78.67,50.27 L88.00,52.91 L97.33,54.15 L106.67,56.20" fill="none" stroke="#000" stroke-width="1.3"></path><path d="M41.33,34.92 L50.67,43.91 L60.00,57.12 L69.33,69.00 L78.67,66.12 L88.00,61.91 L97.33,61.92" fill="none" stroke="#000" stroke-width="1.3"></path><rect x="58.5" y="6" width="3" height="84.2" fill="#FF0000"></rect><path d="M88.00,39.98 L78.67,50.27 L69.33,69.00 L60.00,90.20 L50.67,78.00 L41.33,68.27 L32.00,66.98" fill="none" stroke="#000" stroke-width="1.3"></path><path d="M97.33,43.92 L88.00,52.91 L78.67,66.12 L69.33,78.00 L60.00,75.12 L50.67,70.91 L41.33,70.92" fill="none" stroke="#000" stroke-width="1.3"></path><path d="M106.67,47.20 L97.33,54.15 L88.00,61.91 L78.67,68.27 L69.33,70.91 L60.00,72.15 L50.67,74.20" fill="none" stroke="#000" stroke-width="1.3"></path><path d="M116.00,50.50 L106.67,56.20 L97.33,61.92 L88.00,66.98 L78.67,70.92 L69.33,74.20 L60.00,77.50" fill="none" stroke="#000" stroke-width="1.3"></path><path d="M32.00,39.98 L41.33,50.27 L50.67,69.00 L60.00,90.20 L69.33,78.00 L78.67,68.27 L88.00,66.98" fill="none" stroke="#000" stroke-width="1.3"></path><path d="M22.67,43.92 L32.00,52.91 L41.33,66.12 L50.67,78.00 L60.00,75.12 L69.33,70.91 L78.67,70.92" fill="none" stroke="#000" stroke-width="1.3"></path><path d="M13.33,47.20 L22.67,54.15 L32.00,61.91 L41.33,68.27 L50.67,70.91 L60.00,72.15 L69.33,74.20" fill="none" stroke="#000" stroke-width="1.3"></path><path d="M4.00,50.50 L13.33,56.20 L22.67,61.92 L32.00,66.98 L41.33,70.92 L50.67,74.20 L60.00,77.50" fill="none" stroke="#000" stroke-width="1.3"></path><rect x="56.75" y="86.75" width="6.5" height="6.5" fill="#FF0000"></rect></svg><text x="200" y="404" text-anchor="middle" font-family="&#39;Space Grotesk&#39;,&#39;Arial Narrow&#39;,sans-serif" font-weight="500" font-size="40" letter-spacing="13" fill="#000000">FRONTIER</text></svg>
+    </div>
+
+    <div class="hero-right">
+
+      <div class="frontier-stripe" aria-hidden="true"></div>
+
+      <div class="frontier-body">
+        <p class="frontier-headline">By the time it's consensus, the trade is gone.</p>
+        <p class="frontier-descriptor">A daily market-intelligence brief on the technologies moving markets.</p>
+        <p class="frontier-cadence"><span class="emphasis">Free.</span> Daily. Before the open.</p>
+        <p class="launch-line">Launching August 2026.</p>
+      </div>
+
+      <div class="frontier-verticals">AI · Crypto · Space · Defense · Robotics · Quantum · Fusion</div>
+
+      <div class="signup-section">
+        <div class="signup-heading">Join the list.</div>
+
+        <form class="signup-form" id="signup-form" novalidate>
+          <input
+            type="email"
+            class="signup-input"
+            id="email-input"
+            name="email"
+            placeholder="name@domain.com"
+            required
+            autocomplete="email"
+            aria-label="Email address"
+          >
+          <button type="submit" class="signup-button" id="signup-button">Subscribe</button>
+        </form>
+        <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="copyright">
+      <span class="signal-dot"></span>
+      <span>© MVXX Group 2026</span>
+    </div>
+  </footer>
+
+  <script>
+    const LOOPS_ENDPOINT = 'https://app.loops.so/api/newsletter-form/cmr61k4tv0j250j579kshvri9';
+
+    const form = document.getElementById('signup-form');
+    const emailInput = document.getElementById('email-input');
+    const button = document.getElementById('signup-button');
+    const status = document.getElementById('form-status');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = emailInput.value.trim();
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        status.textContent = 'Enter a valid email address.';
+        status.className = 'form-status error';
+        return;
+      }
+
+      // Rate limit: block re-submits within 60 seconds
+      const now = new Date().valueOf();
+      const previous = localStorage.getItem('loops-form-timestamp');
+      if (previous && Number(previous) + 60000 > now) {
+        status.textContent = 'Too many signups. Try again in a moment.';
+        status.className = 'form-status error';
+        return;
+      }
+      localStorage.setItem('loops-form-timestamp', now);
+
+      button.disabled = true;
+      button.textContent = 'Sending';
+      status.textContent = '';
+      status.className = 'form-status';
+
+      try {
+        const response = await fetch(LOOPS_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: 'userGroup=Free&mailingLists=&email=' + encodeURIComponent(email),
+        });
+
+        if (response.ok) {
+          status.textContent = 'You are on the list. The first wire lands in August.';
+          status.className = 'form-status success';
+          form.reset();
+          button.textContent = 'Subscribed';
+          setTimeout(() => {
+            button.disabled = false;
+            button.textContent = 'Subscribe';
+          }, 3000);
+        } else {
+          const data = await response.json().catch(() => ({}));
+          throw new Error(data.message || 'Signup failed');
+        }
+      } catch (err) {
+        // Clear the rate-limit stamp on failure so a genuine retry isn't blocked
+        localStorage.setItem('loops-form-timestamp', '');
+        if (err.message === 'Failed to fetch') {
+          status.textContent = 'Too many signups. Try again in a little while.';
+        } else {
+          status.textContent = err.message || 'Something went wrong. Try again in a moment.';
+        }
+        status.className = 'form-status error';
+        button.disabled = false;
+        button.textContent = 'Subscribe';
+      }
+    });
+  </script>
+
+</body>
+</html>
